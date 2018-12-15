@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "678530392914",
+    "firebase_url": "https://coffee-ready.firebaseio.com",
+    "project_id": "coffee-ready",
+    "storage_bucket": "coffee-ready.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:678530392914:android:ea13de36248e1960",
+        "android_client_info": {
+          "package_name": "com.example.asus.coffeeready"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "678530392914-mv694fei46mbit5v1oa7dq8k5q3h4i43.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.asus.coffeeready",
+            "certificate_hash": "ac89a70e58678f76acb1180c3db558b138a1e0b0"
+          }
+        },
+        {
+          "client_id": "678530392914-6f0q26p7mprhro01vhes555cc65qs4u5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA51jrYzD34gg-Rpo5Ejq1nb3pXNzhPc64"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "678530392914-6f0q26p7mprhro01vhes555cc65qs4u5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
