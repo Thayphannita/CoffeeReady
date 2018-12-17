@@ -23,6 +23,58 @@
           }
         },
         {
+          "client_id": "678530392914-tub252ug3jgbrq912roarr5egohb6605.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.asus.coffeeready",
+            "certificate_hash": "25c7de359fc29404db9eeb62863c8d2158f6e781"
+          }
+        },
+        {
+          "client_id": "678530392914-6f0q26p7mprhro01vhes555cc65qs4u5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA51jrYzD34gg-Rpo5Ejq1nb3pXNzhPc64"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "678530392914-6f0q26p7mprhro01vhes555cc65qs4u5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:678530392914:android:7e9f87496dc239d5",
+        "android_client_info": {
+          "package_name": "com.example.khmerdev.coffee_readyadmin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "678530392914-enu0ep44pncdc8kgumi70drkqdj45nrd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.khmerdev.coffee_readyadmin",
+            "certificate_hash": "79f0d2fc967ba6464f3b8ebf944191b194ad9e23"
+          }
+        },
+        {
           "client_id": "678530392914-6f0q26p7mprhro01vhes555cc65qs4u5.apps.googleusercontent.com",
           "client_type": 3
         }

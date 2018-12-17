@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Coffee Ready</string>
+    <string name="facebook_app_id">469645693568442</string>
+    <string name="fb_login_protocol_scheme">fb469645693568442</string>
 </resources>
