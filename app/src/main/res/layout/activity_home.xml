@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeActivity">
+    tools:context=".HomeActivity"
+    android:orientation="vertical">
     <!--<GridView-->
         <!--android:id="@+id/grid_view"-->
         <!--android:layout_width="fill_parent"-->
@@ -17,7 +18,17 @@
         <!--android:stretchMode="columnWidth">-->
 
     <!--</GridView>-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="List All Coffee"
+        android:textSize="16dp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:background="#fff"
+        android:textStyle="bold"/>
     <android.support.v7.widget.RecyclerView
+        android:paddingTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/recyclerview">
