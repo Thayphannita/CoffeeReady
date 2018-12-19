@@ -29,7 +29,7 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.Arrays;
 
 
-public class MainActivity extends AppCompatActivity {
+public class LogInActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private LoginButton loginButton;
     private FirebaseUser firebaseUser;
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         firebaseUser = firebaseAuth.getCurrentUser();
 
         if(firebaseUser == null){
-            setContentView(R.layout.activity_main);
+            setContentView(R.layout.activity_log_in);
             FacebookSdk.sdkInitialize(getApplicationContext());
             loginButton = findViewById(R.id.login_button);
 
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
             loginButton.setReadPermissions(Arrays.asList(EMAIL));
         }
         else {
-            Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+            Intent intent = new Intent(LogInActivity.this, HomeActivity.class);
             startActivity(intent);
         }
     }

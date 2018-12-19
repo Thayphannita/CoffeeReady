@@ -5,9 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HomeActivity">
+    <!--<GridView-->
+        <!--android:id="@+id/grid_view"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="fill_parent"-->
+        <!--android:numColumns="auto_fit"-->
+        <!--android:columnWidth="90dp"-->
+        <!--android:horizontalSpacing="10dp"-->
+        <!--android:verticalSpacing="10dp"-->
+        <!--android:gravity="center"-->
+        <!--android:stretchMode="columnWidth">-->
 
-    <TextView
-        android:layout_width="wrap_content"
+    <!--</GridView>-->
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="welcome"/>
+        android:id="@+id/recyclerview">
+
+    </android.support.v7.widget.RecyclerView>
+
 </LinearLayout>
