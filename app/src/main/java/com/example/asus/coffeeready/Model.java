@@ -1,7 +1,7 @@
 package com.example.asus.coffeeready;
 
 public class Model {
-    String name ,url;
+    String name ,url,description;
     public Model(){
     }
 
@@ -19,5 +19,13 @@ public class Model {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

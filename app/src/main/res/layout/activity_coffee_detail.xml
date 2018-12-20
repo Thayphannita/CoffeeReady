@@ -5,22 +5,47 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
     tools:context=".CoffeeDetail">
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#008080"
+        android:textColor="#fff"
+        android:minHeight="?attr/actionBarSize"
+        android:id="@+id/toolbar">
+
+    </android.support.v7.widget.Toolbar>
+    <ImageView
+        android:layout_width="match_parent"
+        android:id="@+id/coffee_image"
+        android:layout_height="200dp"
+        android:layout_marginTop="10dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/coffee_name"/>
+        android:id="@+id/coffee_name"
+        android:layout_marginTop="10dp"
+        android:text="name"
+        android:layout_marginLeft="10dp"
+        android:textSize="20dp"/>
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:id="@+id/coffee_image"
-        android:layout_height="wrap_content" />
 
-    <Button
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/description"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:text="description"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="#008080"
+        android:textColor="#fff"
         android:id="@+id/button_order"
-        android:text="Order"/>
+        android:layout_marginTop="10dp"
+        android:text="order"/>
 </LinearLayout>

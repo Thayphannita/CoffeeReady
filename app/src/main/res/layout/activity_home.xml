@@ -24,11 +24,11 @@
         android:text="List All Coffee"
         android:textSize="16dp"
         android:gravity="center"
-        android:padding="10dp"
-        android:background="#fff"
+        android:padding="15dp"
+        android:textColor="#fff"
+        android:background="#008080"
         android:textStyle="bold"/>
     <android.support.v7.widget.RecyclerView
-        android:paddingTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/recyclerview">

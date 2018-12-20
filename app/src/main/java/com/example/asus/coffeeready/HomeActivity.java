@@ -5,7 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.GridView;
 import android.widget.Toast;
 
@@ -22,13 +25,16 @@ public class HomeActivity extends AppCompatActivity  {
     private Adapter adapter;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         setUpRecyclerView();
+
 //        GridView gridView = (GridView) findViewById(R.id.grid_view);
     }
+
     private void setUpRecyclerView(){
         Query query=Rf.orderBy("name",Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<Model> options=new FirestoreRecyclerOptions.Builder<Model>()
@@ -50,6 +56,8 @@ public class HomeActivity extends AppCompatActivity  {
                 Intent intent=new Intent(HomeActivity.this,CoffeeDetail.class);
                 intent.putExtra("id",id);
                 intent.putExtra("name",model.getName());
+                intent.putExtra("description",model.getDescription());
+                Log.d("TAG",model.getDescription());
                 intent.putExtra("url", model.getUrl());
                 startActivity(intent);
             }
