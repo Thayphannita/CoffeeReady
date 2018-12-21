@@ -1,10 +1,15 @@
 package com.example.asus.coffeeready;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -26,6 +31,8 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 
@@ -41,7 +48,7 @@ public class LogInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
+        printHashKey(getApplicationContext());
         AppEventsLogger.activateApp(this);
 
         txtEmail = findViewById(R.id.txt_email);
@@ -109,20 +116,20 @@ public class LogInActivity extends AppCompatActivity {
         txtEmail.setText(user.getEmail());
     }
 
-//    public void printHashKey(Context pContext) {
-//        try {
-//            PackageInfo info = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
-//            for (Signature signature : info.signatures) {
-//                MessageDigest md = MessageDigest.getInstance("SHA");
-//                md.update(signature.toByteArray());
-//                String hashKey = new String(Base64.encode(md.digest(), 0));
-//                Log.i("Tag", "printHashKey() Hash Key: " + hashKey);
-//            }
-//        } catch (NoSuchAlgorithmException e) {
-//            Log.e("Tag", "printHashKey()", e);
-//        } catch (Exception e) {
-//            Log.e("Tag", "printHashKey()", e);
-//        }
-//    }
+    public void printHashKey(Context pContext) {
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                String hashKey = new String(Base64.encode(md.digest(), 0));
+                Log.i("Tag", "printHashKey() Hash Key: " + hashKey);
+            }
+        } catch (NoSuchAlgorithmException e) {
+            Log.e("Tag", "printHashKey()", e);
+        } catch (Exception e) {
+            Log.e("Tag", "printHashKey()", e);
+        }
+    }
 
 }

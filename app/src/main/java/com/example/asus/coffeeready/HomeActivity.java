@@ -13,15 +13,21 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class HomeActivity extends AppCompatActivity  {
 
-    private FirebaseFirestore Db=FirebaseFirestore.getInstance();
-    private CollectionReference Rf=Db.collection("product");
+    private FirebaseFirestore db=FirebaseFirestore.getInstance();
+    private CollectionReference Rf=db.collection("product");
     private Adapter adapter;
 
 
@@ -51,13 +57,11 @@ public class HomeActivity extends AppCompatActivity  {
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
                 Model model=documentSnapshot.toObject(Model.class);
                 String id=documentSnapshot.getId();
-                Log.d("TAG",model.getName());
                 String path=documentSnapshot.getReference().getPath();
                 Intent intent=new Intent(HomeActivity.this,CoffeeDetail.class);
                 intent.putExtra("id",id);
                 intent.putExtra("name",model.getName());
                 intent.putExtra("description",model.getDescription());
-                Log.d("TAG",model.getDescription());
                 intent.putExtra("url", model.getUrl());
                 startActivity(intent);
             }

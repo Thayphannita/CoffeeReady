@@ -5,14 +5,23 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class CoffeeDetail extends AppCompatActivity {
 
@@ -21,6 +30,7 @@ public class CoffeeDetail extends AppCompatActivity {
     private ImageView coffeeImageImg;
     private TextView descriptionTxt;
     private Button buttonOrderTxt;
+    private FirebaseFirestore db;
     Toolbar toolbar;
 
     @Override
@@ -28,10 +38,10 @@ public class CoffeeDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coffee_detail);
         toolbar=findViewById(R.id.toolbar);
-        setTitle("Coffee Ready");
+//        setTitle("Coffee Ready");
         setSupportActionBar(toolbar);
 //        toolbar.setSubtitle("coffee ready");
-
+        db = FirebaseFirestore.getInstance();
         coffeeImageImg = findViewById(R.id.coffee_image);
         coffeeNameTxt = findViewById(R.id.coffee_name);
         descriptionTxt = findViewById(R.id.description);
@@ -66,4 +76,15 @@ public class CoffeeDetail extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void onButtonOrderClick(View v){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        Map<String, Object> addData = new HashMap<>();
+        addData.put("user_id", user.getUid());
+        db.collection("active_status").document(user.getUid()).set(addData).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(getApplicationContext(), "Successfully ordered", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
 }

@@ -5,47 +5,52 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".CoffeeDetail">
+    tools:context="com.example.asus.coffeeready.CoffeeDetail">
+
     <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#008080"
-        android:textColor="#fff"
+        android:baselineAligned="false"
         android:minHeight="?attr/actionBarSize"
-        android:id="@+id/toolbar">
+        android:textColor="#fff">
 
     </android.support.v7.widget.Toolbar>
+
     <ImageView
-        android:layout_width="match_parent"
         android:id="@+id/coffee_image"
+        android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="10dp" />
 
     <TextView
+        android:id="@+id/coffee_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/coffee_name"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:text="name"
-        android:layout_marginLeft="10dp"
-        android:textSize="20dp"/>
+        android:textSize="20dp" />
 
 
     <TextView
+        android:id="@+id/description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/description"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
-        android:text="description"/>
+        android:layout_marginTop="10dp"
+        android:text="description" />
+
 
     <Button
+        android:id="@+id/button_order"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="#008080"
-        android:textColor="#fff"
-        android:id="@+id/button_order"
+        android:onClick="onButtonOrderClick"
         android:layout_marginTop="10dp"
-        android:text="order"/>
+        android:background="#008080"
+        android:text="order"
+        android:textColor="#fff" />
 </LinearLayout>

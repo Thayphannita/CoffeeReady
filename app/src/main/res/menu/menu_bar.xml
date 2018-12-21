@@ -5,7 +5,7 @@
 
     <item
         android:id="@+id/action_back"
-        android:icon="@drawable/ic_action_back"
+        android:icon="@drawable/ic_action_close"
         android:title="Item"
         app:showAsAction="ifRoom" />
 </menu>
