@@ -24,16 +24,20 @@ import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class LogInActivity extends AppCompatActivity {
@@ -42,18 +46,18 @@ public class LogInActivity extends AppCompatActivity {
     private FirebaseUser firebaseUser;
     private CallbackManager callbackManager;
     private static final String EMAIL = "email";
-    private TextView txtEmail;
+    String role_id = "2";
+    private FirebaseFirestore firestore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        printHashKey(getApplicationContext());
         AppEventsLogger.activateApp(this);
 
-        txtEmail = findViewById(R.id.txt_email);
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
+        firestore = FirebaseFirestore.getInstance();
 
         if(firebaseUser == null){
             setContentView(R.layout.activity_log_in);
@@ -94,13 +98,21 @@ public class LogInActivity extends AppCompatActivity {
         firebaseAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                Log.d("Tag", "signInWithCredential:onComplete:" + task.isSuccessful());
-                if (!task.isSuccessful()) {
+                if (task.isSuccessful()) {
                     FirebaseUser user = firebaseAuth.getCurrentUser();
-                    updateUI(user);
-
+                    String user_id = user.getUid();
+                    final Map<String,Object> userMap = new HashMap<>();
+                    userMap.put("role_id", role_id);
+                    firestore.collection("users").document(user_id).set(userMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Intent intent = new Intent(LogInActivity.this, HomeActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    });
                 } else {
-                    Toast.makeText(getApplicationContext(),"Could not register t firebase",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"Could not register to firebase"+task.getException().getMessage(),Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -113,23 +125,23 @@ public class LogInActivity extends AppCompatActivity {
     }
 
     private void updateUI(FirebaseUser user) {
-        txtEmail.setText(user.getEmail());
+
     }
 
-    public void printHashKey(Context pContext) {
-        try {
-            PackageInfo info = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
-            for (Signature signature : info.signatures) {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                String hashKey = new String(Base64.encode(md.digest(), 0));
-                Log.i("Tag", "printHashKey() Hash Key: " + hashKey);
-            }
-        } catch (NoSuchAlgorithmException e) {
-            Log.e("Tag", "printHashKey()", e);
-        } catch (Exception e) {
-            Log.e("Tag", "printHashKey()", e);
-        }
-    }
+//    public void printHashKey(Context pContext) {
+//        try {
+//            PackageInfo info = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
+//            for (Signature signature : info.signatures) {
+//                MessageDigest md = MessageDigest.getInstance("SHA");
+//                md.update(signature.toByteArray());
+//                String hashKey = new String(Base64.encode(md.digest(), 0));
+//                Log.i("Tag", "printHashKey() Hash Key: " + hashKey);
+//            }
+//        } catch (NoSuchAlgorithmException e) {
+//            Log.e("Tag", "printHashKey()", e);
+//        } catch (Exception e) {
+//            Log.e("Tag", "printHashKey()", e);
+//        }
+//    }
 
 }
