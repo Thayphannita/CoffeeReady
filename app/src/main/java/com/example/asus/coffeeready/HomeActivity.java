@@ -5,31 +5,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.GridView;
-import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class HomeActivity extends AppCompatActivity  {
 
     private FirebaseFirestore db=FirebaseFirestore.getInstance();
-    private CollectionReference Rf=db.collection("product");
+    private CollectionReference reference=db.collection("product");
     private Adapter adapter;
-
 
 
     @Override
@@ -42,9 +29,9 @@ public class HomeActivity extends AppCompatActivity  {
     }
 
     private void setUpRecyclerView(){
-        Query query=Rf.orderBy("name",Query.Direction.DESCENDING);
-        FirestoreRecyclerOptions<Model> options=new FirestoreRecyclerOptions.Builder<Model>()
-                .setQuery(query,Model.class)
+        Query query=reference.orderBy("name",Query.Direction.DESCENDING);
+        FirestoreRecyclerOptions<Product> options=new FirestoreRecyclerOptions.Builder<Product>()
+                .setQuery(query,Product.class)
                 .build();
         adapter =new Adapter(options);
         RecyclerView recyclerView=findViewById(R.id.recyclerview);
@@ -55,7 +42,7 @@ public class HomeActivity extends AppCompatActivity  {
         adapter.setonItemClickListener(new Adapter.onItemClickLestener() {
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
-                Model model=documentSnapshot.toObject(Model.class);
+                Product model=documentSnapshot.toObject(Product.class);
                 String id=documentSnapshot.getId();
                 String path=documentSnapshot.getReference().getPath();
                 Intent intent=new Intent(HomeActivity.this,CoffeeDetail.class);
