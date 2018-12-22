@@ -17,6 +17,8 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
@@ -31,6 +33,9 @@ public class CoffeeDetail extends AppCompatActivity {
     private TextView descriptionTxt;
     private Button buttonOrderTxt;
     private FirebaseFirestore db;
+    private Button btnSmall;
+    private Button btnMedium;
+    private Button btnBig;
     Toolbar toolbar;
 
     @Override
@@ -53,11 +58,15 @@ public class CoffeeDetail extends AppCompatActivity {
         String coffeeId = intent.getStringExtra("id");
         String coffeeUrl = intent.getStringExtra("url");
 
+
+
         coffeeNameTxt.setText(coffeeName);
         descriptionTxt.setText("Description :"+description);
+
         Picasso.get()
                 .load(coffeeUrl)
                 .into(coffeeImageImg);
+
     }
 
     @Override

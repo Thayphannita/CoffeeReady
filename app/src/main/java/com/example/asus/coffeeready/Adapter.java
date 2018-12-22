@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,7 +14,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.squareup.picasso.Picasso;
 
-public class Adapter extends FirestoreRecyclerAdapter <Model,Adapter.ViewHolder>{
+public class Adapter extends FirestoreRecyclerAdapter <Product,Adapter.ViewHolder>{
 
     Context context;
     public static final int NO_POSITION =-1;
@@ -27,12 +26,12 @@ public class Adapter extends FirestoreRecyclerAdapter <Model,Adapter.ViewHolder>
      *
      * @param options
      */
-    public Adapter(FirestoreRecyclerOptions<Model> options) {
+    public Adapter(FirestoreRecyclerOptions<Product> options) {
         super(options);
     }
 
     @Override
-    protected void onBindViewHolder(ViewHolder holder, int position, Model model) {
+    protected void onBindViewHolder(ViewHolder holder, int position, Product model) {
         holder.txtname.setText(model.getName());
         holder.setImage(model.getUrl());
     }
