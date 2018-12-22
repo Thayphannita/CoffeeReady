@@ -53,6 +53,7 @@ public class CoffeeDetail extends AppCompatActivity {
         String coffeeId = intent.getStringExtra("id");
         String coffeeUrl = intent.getStringExtra("url");
 
+
         coffeeNameTxt.setText(coffeeName);
         descriptionTxt.setText("Description :"+description);
         Picasso.get()
