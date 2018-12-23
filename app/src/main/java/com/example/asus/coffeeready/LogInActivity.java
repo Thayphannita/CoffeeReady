@@ -33,6 +33,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -105,25 +106,12 @@ public class LogInActivity extends AppCompatActivity {
                     String username = user.getDisplayName();
                     final String user_id = user.getUid();
                     String url = user.getPhotoUrl().toString();
+                    String tokenId = FirebaseInstanceId.getInstance().getToken();
                     final Map<String,Object> userMap = new HashMap<>();
                     userMap.put("role_id", role_id);
                     userMap.put("username", username);
                     userMap.put("url", url);
-                    user.getIdToken(true).addOnSuccessListener(new OnSuccessListener<GetTokenResult>() {
-                        @Override
-                        public void onSuccess(GetTokenResult getTokenResult) {
-                            String tokenId = getTokenResult.getToken();
-                            Map<String, Object> tokenMap = new HashMap<>();
-                            tokenMap.put("token_id", tokenId);
-                            firestore.collection("users").document(user_id).update(tokenMap).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Toast.makeText(getApplicationContext(),"Logged In",Toast.LENGTH_LONG).show();
-                                }
-                            });
-
-                        }
-                    });
+                    userMap.put("token_id", tokenId);
                     firestore.collection("users").document(user_id).set(userMap).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {

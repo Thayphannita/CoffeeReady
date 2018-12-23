@@ -30,7 +30,7 @@ public class CoffeeDetail extends AppCompatActivity {
     private ImageView coffeeImageImg;
     private TextView descriptionTxt;
     private Button buttonOrderTxt;
-    private FirebaseFirestore db;
+    private FirebaseFirestore db; 
     Toolbar toolbar;
 
     @Override
