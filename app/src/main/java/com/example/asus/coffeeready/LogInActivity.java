@@ -80,22 +80,6 @@ public class LogInActivity extends AppCompatActivity {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 handleFacebookAccessToken(loginResult.getAccessToken());
-                firebaseAuth.getCurrentUser().getIdToken(true).addOnSuccessListener(new OnSuccessListener<GetTokenResult>() {
-                    @Override
-                    public void onSuccess(GetTokenResult getTokenResult) {
-                        String tokenId = getTokenResult.getToken();
-                        String currentId = firebaseAuth.getCurrentUser().getUid();
-
-                        Map<String, Object> tokenMap = new HashMap<>();
-                        tokenMap.put("token_id", tokenId);
-                        firestore.collection("users").document(currentId).update(tokenMap).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-
-                            }
-                        });
-                    }
-                });
             }
 
             @Override
@@ -119,13 +103,27 @@ public class LogInActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     user = firebaseAuth.getCurrentUser();
                     String username = user.getDisplayName();
-                    String user_id = user.getUid();
+                    final String user_id = user.getUid();
                     String url = user.getPhotoUrl().toString();
                     final Map<String,Object> userMap = new HashMap<>();
                     userMap.put("role_id", role_id);
                     userMap.put("username", username);
                     userMap.put("url", url);
+                    user.getIdToken(true).addOnSuccessListener(new OnSuccessListener<GetTokenResult>() {
+                        @Override
+                        public void onSuccess(GetTokenResult getTokenResult) {
+                            String tokenId = getTokenResult.getToken();
+                            Map<String, Object> tokenMap = new HashMap<>();
+                            tokenMap.put("token_id", tokenId);
+                            firestore.collection("users").document(user_id).update(tokenMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(getApplicationContext(),"Logged In",Toast.LENGTH_LONG).show();
+                                }
+                            });
 
+                        }
+                    });
                     firestore.collection("users").document(user_id).set(userMap).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
