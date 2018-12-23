@@ -31,6 +31,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.security.MessageDigest;
@@ -48,6 +49,7 @@ public class LogInActivity extends AppCompatActivity {
     private static final String EMAIL = "email";
     String role_id = "2";
     private FirebaseFirestore firestore;
+    private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +80,22 @@ public class LogInActivity extends AppCompatActivity {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 handleFacebookAccessToken(loginResult.getAccessToken());
+                firebaseAuth.getCurrentUser().getIdToken(true).addOnSuccessListener(new OnSuccessListener<GetTokenResult>() {
+                    @Override
+                    public void onSuccess(GetTokenResult getTokenResult) {
+                        String tokenId = getTokenResult.getToken();
+                        String currentId = firebaseAuth.getCurrentUser().getUid();
+
+                        Map<String, Object> tokenMap = new HashMap<>();
+                        tokenMap.put("token_id", tokenId);
+                        firestore.collection("users").document(currentId).update(tokenMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+
+                            }
+                        });
+                    }
+                });
             }
 
             @Override
@@ -99,10 +117,15 @@ public class LogInActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    FirebaseUser user = firebaseAuth.getCurrentUser();
+                    user = firebaseAuth.getCurrentUser();
+                    String username = user.getDisplayName();
                     String user_id = user.getUid();
+                    String url = user.getPhotoUrl().toString();
                     final Map<String,Object> userMap = new HashMap<>();
                     userMap.put("role_id", role_id);
+                    userMap.put("username", username);
+                    userMap.put("url", url);
+
                     firestore.collection("users").document(user_id).set(userMap).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
