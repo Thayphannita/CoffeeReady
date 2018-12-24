@@ -31,7 +31,6 @@ public class CoffeeDetail extends AppCompatActivity {
     private TextView coffeeNameTxt;
     private ImageView coffeeImageImg;
     private TextView descriptionTxt;
-    private Button buttonOrderTxt;
     private FirebaseFirestore db;
     private Button buttonSmall;
     private Button buttonMedium;
@@ -53,7 +52,6 @@ public class CoffeeDetail extends AppCompatActivity {
         coffeeImageImg = findViewById(R.id.coffee_image);
         coffeeNameTxt = findViewById(R.id.coffee_name);
         descriptionTxt = findViewById(R.id.description);
-        buttonOrderTxt = findViewById(R.id.button_order);
         buttonSmall = findViewById(R.id.btn_small);
         buttonMedium = findViewById(R.id.btn_medium);
         buttonBig = findViewById(R.id.btn_big);
@@ -114,10 +112,9 @@ public class CoffeeDetail extends AppCompatActivity {
         db.collection("price").document("small").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
+                Log.d("Tag","Price" +documentSnapshot.get("price"));
                 price.setPrice(documentSnapshot.get("price").toString());
                 buttonSmall.setText(documentSnapshot.get("price").toString());
-                Log.d("TAG","Price: "+price.getPrice());
-
             }
         });
     }
